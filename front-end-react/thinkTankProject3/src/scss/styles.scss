@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700");
+@import "reset";
+@import "grid";
+
+body {
+  font-size: 16px;
+}
+
+.NavBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 10%;
+  background-color: #f0f0f0;
+}
+
+// .HomePage {
+
+// }
+
+// .AboutPage {
+
+// }
+
+// .ContactPage{
+
+// }
+
+.AppPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.PostsPage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  height: 300px;
+  padding: 10px;
+  border: 10px black;
+  box-shadow: 6px;
+  background-color: lightgray;
+  h3{
+    text-align: center;
+  }
+}
+
+.Posts{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  height: 200px;
+  margin: 1px;
+  border: 10px black;
+  box-shadow: 6px;
+  background-color: lightgray;
+  h3{
+    text-align: center;
+  }
+}
+
+.Login {
+  width: 10%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.Welcome {
+  text-align: center;
+}
+
+.tagLine {
+  text-align: center;
+}
+
+@media (min-width: 360px){
+  .AppPage{
+    font-size: 10px;
+  }
+  h1{
+    font-size: 20px;
+  }
+  h3{
+    font-size: 16px;
+  }
+  .NavBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 10%;
+    background-color: #f0f0f0;
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 576px){
+  .AppPage{
+    font-size: 10px;
+  }
+  h1{
+    font-size: 30px;
+  }
+  h3{
+    font-size: 16px;
+  }
+  .NavBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 10%;
+    background-color: #f0f0f0;
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 768px){
+  .AppPage{
+    font-size: 12px;
+  }
+  h1{
+    font-size: 40px;
+  }
+  h3{
+    font-size: 16px;
+  }
+  .NavBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 10%;
+    font-size: 16px;
+    background-color: #f0f0f0;
+  }
+}
+
+@media (min-width: 992px){
+  .AppPage{
+    font-size: 14px;
+  }
+  h1{
+    font-size: 40px;
+  }
+  h3{
+    font-size: 16px;
+  }
+  .NavBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 10%;
+    font-size: 16px;
+    background-color: #f0f0f0;
+  }
+}
+
+@media (min-width: 1200px){
+  .AppPage{
+    font-size: 16px;
+  }
+  .NavBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 10%;
+    font-size: 16px;
+    background-color: #f0f0f0;
+  }
+}
