@@ -1,6 +1,5 @@
 const User = require('../models/user');
-const Comment = require('../models/comment');
-const Post = require('../models/post');
+const Team = require('../models/team');
 const express = require('express');
 const userRouter = express.Router();
 
@@ -11,14 +10,14 @@ const userRouter = express.Router();
 // Create
 userRouter.post('/', async (req, res)=> {
     try {
-        const { userName, password, userID } = req.body
+        const { userName, password, teamID } = req.body
         const newUser = await User.create({
             userName,
             password
         });
-        const foundUser = await User.findById(userID)
-        const userPosts = foundUser.posts
-        const updatedUser = await User.findByIdAndUpdate(userID, {posts: [...userPosts, newUser._id]})
+        const foundTeam = await Team.findById(userID)
+        const teamUsers = foundTeam.users
+        const updatedTeam = await Team.findByIdAndUpdate(teamID, {users: [...teamUsers, newUser._id]})
         res
           .status(200)
           .json(newUser)

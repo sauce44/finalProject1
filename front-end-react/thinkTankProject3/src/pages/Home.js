@@ -1,6 +1,30 @@
 import React, { useState } from 'react';
 
 export default function Home(props) {
+	const [posts, setPosts] = useState({});
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const response = await fetch(`/api/posts`);
+				const data = await response.json();
+				setPosts(data);
+			} catch (error) {
+				console.error(error);
+			}
+		})();
+	}, []);
+
+	// const topLikes = () => {
+	// 	const topLikes = 0
+	// 	posts.map(post => {
+	// 		if(post.likes > topLikes){
+	// 			post.importance = 1
+
+	// 		}
+	// 	})
+	// }
+
 	return (
 		<div className="HomePage">
 			<h2>Popular Posts</h2>

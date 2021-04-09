@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user')
 const express = require('express');
 const postRouter = express.Router();
 // INDUCES
@@ -8,7 +9,14 @@ const postRouter = express.Router();
 // Create
 postRouter.post('/', async (req, res)=> {
     try {
-        const newPost = await Post.create(req.body);
+        const { title, body, userID } = req.body
+        const newPost = await Post.create({
+          title,
+          body
+        });
+        const foundUser = await User.findById(postID)
+        const userPosts = foundUser.posts
+        const updatedUser = await User.findByIdAndUpdate(userID, {posts: [...userPosts, newPost._id]})
         res
           .status(200)
           .json(newPost)

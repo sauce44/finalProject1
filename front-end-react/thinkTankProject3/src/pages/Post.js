@@ -27,16 +27,19 @@ export default function Post(props) {
 		useEffect(() => {
 			(async () => {
 				try {
-					const response = await fetch(`/api/comments/${props.match.params.id}`, {
-						method: 'PUT',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify({
-							name: nameInput.current.value,
-							message: messageInput.current.value
-						})
-					});
+					const response = await fetch(
+						`/api/comments/${props.match.params.id}`,
+						{
+							method: 'PUT',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								name: nameInput.current.value,
+								message: messageInput.current.value
+							})
+						}
+					);
 					const data = await response.json();
 					setComment(data);
 				} catch (error) {
@@ -63,7 +66,7 @@ export default function Post(props) {
 									<small>{comment.createdAt}</small>
 								</li>
 							);
-					})
+					  })
 					: ''}
 			</ul>
 			{/* <Link to={`/${post._id}/addComment`}> */}

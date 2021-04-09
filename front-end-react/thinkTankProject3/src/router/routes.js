@@ -28,17 +28,17 @@ const routes = [
 	{
 		Component: UpdatePost,
 		key: 'UpdatePost',
-		path: '/:id/edit'
+		path: 'edit/:id/'
 	},
 	{
 		Component: Post,
 		key: 'Post',
-		path: '/:id'
+		path: '/post/:id'
 	},
 	{
 		Component: UserProfile,
 		key: 'UserProfile',
-		path: '/:id/user'
+		path: '/users/:id'
 	},
 	{
 		Component: Red,

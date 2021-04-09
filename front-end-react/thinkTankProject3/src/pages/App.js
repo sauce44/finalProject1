@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function App(props) {
-	const [post, setPost] = useState([]);
+	const [posts, setPosts] = useState([]);
 	const titleInput = useRef(null);
 	const bodyInput = useRef(null);
 
@@ -11,12 +11,12 @@ export default function App(props) {
 			try {
 				const response = await fetch('/api/posts');
 				const data = await response.json();
-				setPost(data);
+				await setPosts(data);
 			} catch (error) {
 				console.error(error);
 			}
 		})();
-	});
+	}, []);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -34,7 +34,7 @@ export default function App(props) {
 				})
 			});
 			const data = await response.json();
-			setPost([...post, data]);
+			await setPosts([...posts, data]);
 		} catch (error) {
 			console.error(error);
 		}
@@ -44,14 +44,14 @@ export default function App(props) {
 		<div className="AppPage">
 			<h1 className="Welcome">Welcome to the Think Tank</h1>
 			<h2 className="tagLine">Popular Posts</h2>
-			{post.map(post => {
+			{posts.map((post) => {
 				return (
 					<div className="Posts" key={post._id}>
-						<Link to={`/${post._id}`}>
+						<Link to={`/posts/${post._id}`}>
 							<h3>{post.title}</h3>
 						</Link>
 						<p>{post.body}</p>
-						<ul>
+						{/* <ul>
 							{post.comments && post.comments.length
 								? post.comments.map(comment => {
 										return (
@@ -63,7 +63,7 @@ export default function App(props) {
 										);
 								})
 								: ''}
-						</ul>
+						</ul> */}
 					</div>
 				);
 			})}

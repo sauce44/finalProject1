@@ -1,20 +1,26 @@
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 
-const SignupButton = () => {
-  const { loginWithRedirect } = useAuth0();
+function SignUpButton(props) {
+
   return (
-    <button
-      className="btn btn-primary btn-block"
-      onClick={() =>
-        loginWithRedirect({
-          screen_hint: "signup",
-        })
-      }
-    >
-      Sign Up through Auth0
-    </button>
-  );
-};
+    <div>
+      <h2>Sign Up</h2>
 
-export default SignupButton;
+      <form>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input type="text" name="Email" onChange={props.handleInput} />
+        </div>
+
+        <div>
+          <label htmlFor="password">Password</label>
+          <input type="text" name="Password" onChange={props.handleInput} />
+        </div>
+
+        <input value="Submit" type="submit" onClick={props.handleSignUp} />
+      </form>
+    </div>
+  );
+}
+
+export default SignUpButton;

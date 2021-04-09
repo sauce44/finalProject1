@@ -3,8 +3,10 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
+const cors = require('cors')
 const path = require('path');
-const { hash, auth } = require('')
+const { hash, auth } = require('./controllers/authController');
+const userController = require('./controllers/userController');
 
 const MONGODB_URI = process.env.MONGODB_URI
 const db = mongoose.connection;
@@ -23,6 +25,7 @@ app.use(express.json());
 if (process.env.NODE_ENV !== 'development'){
   app.use(express.static('public'))
 }
+app.use(cors());
 
 /* Controller Goes Here Remove the tes*/
 app.get('/test', (req, res)=>{
@@ -33,9 +36,10 @@ app.get('/test', (req, res)=>{
 })
 /* Controller Ends here */
 //LISTENER
-app.use('/api/posts', require('./controllers/posts'));
-app.use('/api/comments', require('./controllers/comments'));
-app.use('/api/users', require('./controllers/users'));
+app.use('/', userController)
+app.use('/api/posts', auth, require('./controllers/posts'));
+app.use('/api/comments', auth, require('./controllers/comments'));
+app.use('/api/users', auth, require('./controllers/users'));
 
 // for react router
 app.get('*', (req, res) => {
