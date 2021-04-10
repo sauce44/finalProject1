@@ -12,9 +12,9 @@ postRouter.post('/', async (req, res)=> {
         const { title, body, userID } = req.body
         const newPost = await Post.create({
           title,
-          body
+          body,
         });
-        const foundUser = await User.findById(postID)
+        const foundUser = await User.findById(userID)
         const userPosts = foundUser.posts
         const updatedUser = await User.findByIdAndUpdate(userID, {posts: [...userPosts, newPost._id]})
         res

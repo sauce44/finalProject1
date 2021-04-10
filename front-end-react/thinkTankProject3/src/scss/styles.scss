@@ -5,31 +5,110 @@
 body {
   font-size: 16px;
 }
-
-.NavBar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 10%;
-  background-color: #f0f0f0;
+.pageWrapper{
+  display: inline-flex;
+  background-color: #FBEEC1;
 }
 
-// .HomePage {
+.NavBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px;
+    height: 100vh;
+    top: 300px;
+    border: solid black 2px;
+    box-shadow: 5px 5px 5px black(0.6);
+    background-color: #f0f0f0;
+    resize: both;
+    overflow: auto;
+}
 
-// }
+  .Posts{
+    order: 4;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 200px;
+    margin: 3px;
+    border: solid black 2px;
+    box-shadow: 5px 5px 5px black(0.6);
+    background-color: lightgray;
+    resize: both;
+    overflow: auto;
+      h3{
+      text-align: center;
+    }
+  }
+  .Login{
+    order: 1;
+    position: relative;
+    width: 300px;
+    height: 100px;
+    top: 0px;
+    left: 20px;
+    background-color: #659DBD;
+  }
+  .login-button{
+    width: 100px;
+    height: 30px;
+    top: 0px;
+    left: 20px;
+  }
 
-// .AboutPage {
+  .Signup{
+    order: 1;
+    position: relative;
+    width: 300px;
+    height: 100px;
+    top: 0px;
+    left: 40px;
+    background-color: #659DBD;
+  }
+  .signup-button{
+    width: 100px;
+    height: 30px;
+    top: 0px;
+    left: 40px;
+  }
 
-// }
 
-// .ContactPage{
 
-// }
 
 .AppPage {
-  display: flex;
+  width: 100vw;
+  display: flex; 
   flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
+  align-content: center;
+}
+
+.footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: absolute;
+  padding: 10px 10px 0px 10px;
+  bottom: 0px;
+  width: 80%;
+  height: 50px;
+  border: solid black 2px;
+  box-shadow: 5px 5px 5px black(0.6);
+  align-items: center;
+  background: lightgray; 
+  .submit{
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    width: 100px;
+    height: 20px;
+    background: white; 
+  }
 }
 
 .PostsPage{
@@ -37,7 +116,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 75%;
+  width: 300px;
   height: 300px;
   padding: 10px;
   border: 10px black;
@@ -48,127 +127,31 @@ body {
   }
 }
 
-.Posts{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 75%;
-  height: 200px;
-  margin: 1px;
-  border: 10px black;
-  box-shadow: 6px;
-  background-color: lightgray;
-  h3{
-    text-align: center;
-  }
+.UserProfile{
+  width: 100vw;
 }
 
-.Login {
-  width: 10%;
-  position: absolute;
+.WelcomeHeader {
+  order: 0;
   top: 0px;
+  left: 0px;
   right: 0px;
-}
-
-.Welcome {
+  align-items: center;
   text-align: center;
-}
-
-.tagLine {
-  text-align: center;
-}
-
-@media (min-width: 360px){
-  .AppPage{
-    font-size: 10px;
+  border: solid black 2px;
+  box-shadow: 5px 5px 5px black(0.6);
+  background-color: #659DBD;
+  .Welcome {
+    position: relative;
+    align-items: center;
+    font-size: 24px;
+    height: 30px;
+    width: 300px; 
   }
-  h1{
-    font-size: 20px;
-  }
-  h3{
-    font-size: 16px;
-  }
-  .NavBar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 10%;
-    background-color: #f0f0f0;
-    font-size: 8px;
-  }
-}
-
-@media (min-width: 576px){
-  .AppPage{
-    font-size: 10px;
-  }
-  h1{
-    font-size: 30px;
-  }
-  h3{
-    font-size: 16px;
-  }
-  .NavBar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 10%;
-    background-color: #f0f0f0;
-    font-size: 8px;
-  }
-}
-
-@media (min-width: 768px){
-  .AppPage{
-    font-size: 12px;
-  }
-  h1{
-    font-size: 40px;
-  }
-  h3{
-    font-size: 16px;
-  }
-  .NavBar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 10%;
-    font-size: 16px;
-    background-color: #f0f0f0;
-  }
-}
-
-@media (min-width: 992px){
-  .AppPage{
-    font-size: 14px;
-  }
-  h1{
-    font-size: 40px;
-  }
-  h3{
-    font-size: 16px;
-  }
-  .NavBar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 10%;
-    font-size: 16px;
-    background-color: #f0f0f0;
-  }
-}
-
-@media (min-width: 1200px){
-  .AppPage{
-    font-size: 16px;
-  }
-  .NavBar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 10%;
-    font-size: 16px;
-    background-color: #f0f0f0;
+  .tagLine {
+    position: relative;
+    font-size: 20;
+    height: 30px;
+    width: 300px; 
   }
 }

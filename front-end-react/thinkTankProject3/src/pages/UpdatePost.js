@@ -59,7 +59,13 @@ export default function UpdatePost(props) {
 	};
 
 	return (
-		<div>
+		<div className="updatePost">
+			<div className="WelcomeHeader">
+				<h1 className="Welcome">Think Tank</h1>
+			</div>
+			<Link to={`/`}>
+				<button>Back to Home</button>
+			</Link>
 			<div>
 				<h1>{post.title ? post.title : ''}</h1>
 				<p>{post.body ? post.body : ''}</p>

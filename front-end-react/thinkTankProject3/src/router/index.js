@@ -65,27 +65,30 @@ const AppRouter = props => {
 
 	return (
 		<Router>
-			<NavBar routes={routes} isLoggedIn={isLoggedIn} />
-			<AuthenticationButton className="Login" props={isLoggedIn} />
-			<Switch>
-				{routes.map(({ Component, key, path }) => (
-					<Route
-						key={key}
-						path={path}
-						component={props => (
-							<Component
-								page={key}
-								{...props}
-								isLoggedIn={isLoggedIn}
-								handleInput={handleInput}
-								handleLogIn={handleLogIn}
-								handleLogOut={handleLogOut}
-								handleSignUp={handleSignUp}
-							/>
-						)}
-					></Route>
-				))}
-			</Switch>
+			<div className="pageWrapper">
+				<NavBar routes={routes} isLoggedIn={isLoggedIn} />
+				<AuthenticationButton className="Login" props={isLoggedIn} />
+				<signup-button className="Signup" props={(handleSignUp, handleInput)} />
+				<Switch>
+					{routes.map(({ Component, key, path }) => (
+						<Route
+							key={key}
+							path={path}
+							component={props => (
+								<Component
+									page={key}
+									{...props}
+									isLoggedIn={isLoggedIn}
+									handleInput={handleInput}
+									handleLogIn={handleLogIn}
+									handleLogOut={handleLogOut}
+									handleSignUp={handleSignUp}
+								/>
+							)}
+						></Route>
+					))}
+				</Switch>
+			</div>
 		</Router>
 	);
 };

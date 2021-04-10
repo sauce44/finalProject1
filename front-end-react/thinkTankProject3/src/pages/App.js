@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../scss/styles.scss';
 
 export default function App(props) {
 	const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ export default function App(props) {
 			try {
 				const response = await fetch('/api/posts');
 				const data = await response.json();
-				await setPosts(data);
+				await setPosts([data]);
 			} catch (error) {
 				console.error(error);
 			}
@@ -38,46 +39,49 @@ export default function App(props) {
 		} catch (error) {
 			console.error(error);
 		}
+		titleInput.current.value = '';
+		bodyInput.current.value = '';
 	};
 
 	return (
-		<div className="AppPage">
-			<h1 className="Welcome">Welcome to the Think Tank</h1>
-			<h2 className="tagLine">Popular Posts</h2>
-			{posts.map((post) => {
-				return (
-					<div className="Posts" key={post._id}>
-						<Link to={`/posts/${post._id}`}>
-							<h3>{post.title}</h3>
-						</Link>
-						<p>{post.body}</p>
-						{/* <ul>
-							{post.comments && post.comments.length
-								? post.comments.map(comment => {
-										return (
-											<li className="Comments" key={comment._id}>
-												<h4>{comment.name} says... </h4>
-												<p>{comment.message}</p>
-												<small>{comment.createdAt}</small>
-											</li>
-										);
-								})
-								: ''}
-						</ul> */}
-					</div>
-				);
-			})}
-			<form
-				style={{ display: 'flex', flexDirection: 'column' }}
-				onSubmit={handleSubmit}
-			>
+		<div className="FullPage">
+			<div className="AppPage">
+				<div className="WelcomeHeader">
+					<h1 className="Welcome">Welcome to the Think Tank</h1>
+					<h2 className="tagLine">Popular Posts</h2>
+				</div>
+				{posts.map(post => {
+					return (
+						<div className="Posts" key={post._id}>
+							<Link to={`/${post._id}/posts`}>
+								<h3>{post.title}</h3>
+							</Link>
+							<p>{post.body}</p>
+							<ul>
+								{post.comments && post.comments.length
+									? post.comments.map(comment => {
+											return (
+												<li className="Comments" key={comment._id}>
+													<h4>{comment.name} says... </h4>
+													<p>{comment.message}</p>
+													<small>{comment.createdAt}</small>
+												</li>
+											);
+									  })
+									: ''}
+							</ul>
+						</div>
+					);
+				})}
+			</div>
+			<form className="footer" onSubmit={handleSubmit}>
 				<label>
-					Title: <input type="text" ref={titleInput} />
+					Post Title: <input type="text" ref={titleInput} />
 				</label>
 				<label>
-					Body: <input type="text" ref={bodyInput} />
+					Description: <input type="text" ref={bodyInput} />
 				</label>
-				<input type="submit" value="Create Tank" />
+				<input className="submit" type="submit" value="Create Tank" />
 			</form>
 		</div>
 	);

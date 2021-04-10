@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function useProfile(props) {
 	const [user, setUser] = useState({});
-	const [teamData, setTeamData] = useState({});
+	const [teamData, setTeamData] = useState([]);
 	const [joinedTeam, setJoinedTeam] = useState(false);
 
 	useEffect(() => {
@@ -73,11 +73,9 @@ export default function useProfile(props) {
 	}, [user]);
 
 	const selectJob = () => {
-		selectElement = document.querySelector('.Dropdown');
+		let e = document.querySelector('.Dropdown');
 
-		output = selectElement.options[selectElement.selectedIndex].value;
-
-		document.querySelector('.output').textContent = output;
+		let output = e.options[e.selectedIndex].value;
 
 		async e => {
 			e.preventDefault();
@@ -106,13 +104,41 @@ export default function useProfile(props) {
 		};
 	};
 
-	// const joinTeam = () => {
-	// 	if(user.team == false){
+	const joinTeam = () => {
+		if (user.team == false) {
+			for (i = 0; i < teamData.users.length; i++) {
+				if (teamData.users[i].jobs.filter(users => users.job == output)) {
+					async e => {
+						e.preventDefault();
+						const body = JSON.stringify({
+							users: {
+								users: user
+							}
+						});
 
-	// 	}
-	// }
+						try {
+							const response = await fetch(
+								`/api/teams/${props.match.params.user.id}`,
+								{
+									method: 'PUT',
+									headers: {
+										'Content-Type': 'application/json'
+									},
+									body: body
+								}
+							);
+							const data = await response.json();
+							setTeamData(...teamData, data);
+						} catch (error) {
+							console.error(error);
+						}
+					};
+				}
+			}
+		}
+	};
 
-	if (props.isLoggedIn == true && joinedTeam == true)
+	if (props.isLoggedIn == true && joinedTeam == true) {
 		return (
 			<div className="UserProfile">
 				{/* <img src={USER.picture} alt={USER.name} /> */}
@@ -132,8 +158,9 @@ export default function useProfile(props) {
 				</p>
 			</div>
 		);
+	}
 
-	if (props.isLoggedIn == true && joinedTeam == false)
+	if (props.isLoggedIn == true && joinedTeam == false) {
 		return (
 			<div className="UserProfile">
 				{/* <img src={USER.picture} alt={USER.name} /> */}
@@ -143,7 +170,7 @@ export default function useProfile(props) {
 						It's Time To Sort You, Select Speciality
 					</label>
 					{/* Fill in a select on Change method */}
-					<select className="Dropdown" onClick={selectJob}>
+					<select className="Dropdown" onSelect={selectJob}>
 						<option value="Tech">Tech</option>
 						<option value="Art">Art</option>
 						<option value="Engineer">Engineer</option>
@@ -153,12 +180,15 @@ export default function useProfile(props) {
 				</div>
 			</div>
 		);
-
+	}
 	return (
 		<div className="UserProfile">
 			<Link to={`/`}>
 				<button>Back to Home</button>
 			</Link>
+			<div className="WelcomeHeader">
+				<h1 className="Welcome">Think Tank</h1>
+			</div>
 			<signup-button
 				handleInput={props.handleInput}
 				handleSignUp={props.handleSignUp}

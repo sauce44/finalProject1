@@ -17,9 +17,11 @@ mongoose.connect(MONGODB_URI, {
 	useFindAndModify: true,
 	useCreateIndex: false
 });
-db.on('open', () => {
+
+db.once('open', () => {
     console.log('Mongo is Connected');
 });
+db.on('error', (error) => console.error(error));
 /* Middleware */
 app.use(express.json());
 if (process.env.NODE_ENV !== 'development'){
@@ -37,9 +39,10 @@ app.get('/test', (req, res)=>{
 /* Controller Ends here */
 //LISTENER
 app.use('/', userController)
-app.use('/api/posts', auth, require('./controllers/posts'));
-app.use('/api/comments', auth, require('./controllers/comments'));
-app.use('/api/users', auth, require('./controllers/users'));
+app.use('/api/teams', require('./controllers/teams'))
+app.use('/api/posts', require('./controllers/posts'));
+app.use('/api/comments', require('./controllers/comments'));
+app.use('/api/users', userController);
 
 // for react router
 app.get('*', (req, res) => {

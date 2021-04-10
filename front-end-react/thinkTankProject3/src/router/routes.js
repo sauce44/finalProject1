@@ -10,35 +10,35 @@ import Red from '../pages/Red';
 import Blue from '../pages/Blue';
 
 const routes = [
-	{
-		Component: Contact,
-		key: 'Contact',
-		path: '/contact'
-	},
-	{
-		Component: Home,
-		key: 'Home',
-		path: '/home'
-	},
-	{
-		Component: About,
-		key: 'About',
-		path: '/about'
-	},
-	{
-		Component: UpdatePost,
-		key: 'UpdatePost',
-		path: 'edit/:id/'
-	},
-	{
-		Component: Post,
-		key: 'Post',
-		path: '/post/:id'
-	},
+	// {
+	// 	Component: Contact,
+	// 	key: 'Contact',
+	// 	path: '/contact'
+	// },
+	// {
+	// 	Component: Home,
+	// 	key: 'Home',
+	// 	path: '/home'
+	// },
+	// {
+	// 	Component: About,
+	// 	key: 'About',
+	// 	path: '/about'
+	// },
+	// {
+	// 	Component: UpdatePost,
+	// 	key: 'UpdatePost',
+	// 	path: '/:id/edit'
+	// },
+	// {
+	// 	Component: Post,
+	// 	key: 'Post',
+	// 	path: '/:id/post'
+	// },
 	{
 		Component: UserProfile,
 		key: 'UserProfile',
-		path: '/users/:id'
+		path: '/:id/users'
 	},
 	{
 		Component: Red,
