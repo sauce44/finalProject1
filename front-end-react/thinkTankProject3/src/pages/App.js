@@ -100,3 +100,4 @@ export default function App(props) {
 		</div>
 	);
 }
+{console.log('work plz')}
