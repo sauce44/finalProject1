@@ -3,11 +3,12 @@ import NavBar from '../components/NavBar';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import routes from './routes';
 import AuthenticationButton from '../components/authentication-button';
+import SignupButton from '../components/signup-button';
 
 const AppRouter = props => {
 	const [userData, setUserData] = useState({
-		email: '',
-		password: '',
+		Email: '',
+		Password: '',
 		isLoggedIn: false
 	});
 
@@ -23,8 +24,8 @@ const AppRouter = props => {
 
 	const handleLogOut = () => {
 		setUserData({
-			email: '',
-			password: '',
+			Email: '',
+			Password: '',
 			isLoggedIn: false
 		});
 		localStorage.clear();
@@ -38,8 +39,8 @@ const AppRouter = props => {
 		event.preventDefault();
 		try {
 			const response = await axios.post('http://localhost:3001/register', {
-				email: state.email,
-				password: state.password
+				Email: state.email,
+				Password: state.password
 			});
 			console.log(response);
 			localStorage.setItem('token', response.data.token);
@@ -53,8 +54,8 @@ const AppRouter = props => {
 		event.preventDefault();
 		try {
 			const response = await axios.post('http://localhost:3001/login', {
-				email: state.email,
-				password: state.password
+				Email: state.email,
+				Password: state.password
 			});
 			localStorage.setItem('token', response.data.token);
 			setIsLoggedIn(true);
@@ -66,9 +67,13 @@ const AppRouter = props => {
 	return (
 		<Router>
 			<div className="pageWrapper">
-				<NavBar routes={routes} isLoggedIn={isLoggedIn} />
+				<div className="WelcomeHeader">
+					<h1 className="Welcome">Welcome to the Think Tank</h1>
+					<h2 className="tagLine">Popular Posts</h2>
+					<NavBar routes={routes} isLoggedIn={isLoggedIn} />
+				</div>
 				<AuthenticationButton className="Login" props={isLoggedIn} />
-				<signup-button className="Signup" props={(handleSignUp, handleInput)} />
+				<SignupButton className="Signup" props={(handleSignUp, handleInput)} />
 				<Switch>
 					{routes.map(({ Component, key, path }) => (
 						<Route

@@ -6,7 +6,7 @@ const teamRouter = express.Router();
 // -- edit goes bye bye
 // CRUD
 // Create
-teamRouter.post('/', async (req, res)=> {
+teamRouter.post('/api/teams', async (req, res)=> {
     try {
         const newTeam = await Team.create(req.body);
         res
@@ -20,7 +20,7 @@ teamRouter.post('/', async (req, res)=> {
 })
 // Read 
 /* Index */
-teamRouter.get('/', async (req, res) => {
+teamRouter.get('/api/teams', async (req, res) => {
   try {
     const foundTeams = await Team.find({})
     res
@@ -33,7 +33,7 @@ teamRouter.get('/', async (req, res) => {
   }
 })
 /* Show */
-teamRouter.get('/:id', async (req, res) => {
+teamRouter.get('/api/teams/:id', async (req, res) => {
     try {
         const foundTeam = await Team.findById(req.params.id)
         await foundTeam.execPopulate('users')
@@ -47,7 +47,7 @@ teamRouter.get('/:id', async (req, res) => {
     }
 })
 // Destroy
-teamRouter.delete('/:id', async (req, res) => {
+teamRouter.delete('/api/teams/:id', async (req, res) => {
     try {
         const foundTeam = await Team.findByIdAndDelete(req.params.id)
         res
@@ -60,7 +60,7 @@ teamRouter.delete('/:id', async (req, res) => {
     }
 })
 // Update
-teamRouter.put('/:id', async (req, res) => {
+teamRouter.put('/api/teams/:id', async (req, res) => {
     try {
         const foundTeam = await Team.findByIdAndUpdate(req.params.id, req.body, { new: true } )
         res

@@ -1,10 +1,10 @@
-import React from 'react';
+// import React from 'react';
 import App from '../pages/App';
-import About from '../pages/About';
-import Home from '../pages/Home';
-import Contact from '../pages/Contact';
-import Post from '../pages/Post';
-import UpdatePost from '../pages/UpdatePost';
+// import About from '../pages/About';
+// import Home from '../pages/Home';
+// import Contact from '../pages/Contact';
+// import Post from '../pages/Post';
+// import UpdatePost from '../pages/UpdatePost';
 import UserProfile from '../pages/UserProfile';
 import Red from '../pages/Red';
 import Blue from '../pages/Blue';
@@ -38,21 +38,21 @@ const routes = [
 	{
 		Component: UserProfile,
 		key: 'UserProfile',
-		path: '/:id/users'
+		path: '/users/:id'
 	},
 	{
 		Component: Red,
-		key: 'Red',
+		key: 'Red Tank',
 		path: '/red'
 	},
 	{
 		Component: Blue,
-		key: 'Blue',
+		key: 'Blue Tank',
 		path: '/blue'
 	},
 	{
 		Component: App,
-		key: 'App',
+		key: 'Home',
 		path: '/'
 	}
 ];

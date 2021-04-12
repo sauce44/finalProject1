@@ -5,9 +5,13 @@
 body {
   font-size: 16px;
 }
+
 .pageWrapper{
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   background-color: #FBEEC1;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .NavBar {
@@ -25,7 +29,7 @@ body {
     overflow: auto;
 }
 
-  .Posts{
+  .posts{
     order: 4;
     display: flex;
     flex-direction: row;
@@ -60,6 +64,13 @@ body {
     left: 20px;
   }
 
+  .backHome{
+    width: 100px;
+    height: 30px;
+    top: 0px;
+    left: 20px;
+  }
+
   .Signup{
     order: 1;
     position: relative;
@@ -76,9 +87,6 @@ body {
     left: 40px;
   }
 
-
-
-
 .AppPage {
   width: 100vw;
   display: flex; 
@@ -86,30 +94,39 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
+  text-align: center;
 }
 
-.footer{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  position: absolute;
-  padding: 10px 10px 0px 10px;
-  bottom: 0px;
-  width: 80%;
-  height: 50px;
-  border: solid black 2px;
-  box-shadow: 5px 5px 5px black(0.6);
-  align-items: center;
-  background: lightgray; 
-  .submit{
-    position: absolute;
-    bottom: 10px;
-    right: 50px;
-    width: 100px;
-    height: 20px;
-    background: white; 
-  }
+.BluePage {
+  width: 100vw;
+  display: flex; 
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
 }
+
+.RedPage {
+  width: 100vw;
+  display: flex; 
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.UserProfile{
+  width: 100vw;
+  display: flex; 
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
 
 .PostsPage{
   display: flex;
@@ -127,31 +144,95 @@ body {
   }
 }
 
-.UserProfile{
-  width: 100vw;
-}
 
 .WelcomeHeader {
   order: 0;
   top: 0px;
   left: 0px;
   right: 0px;
+  height: 80px;
+  width: 50vw; 
   align-items: center;
   text-align: center;
+  margin-bottom: auto;
   border: solid black 2px;
   box-shadow: 5px 5px 5px black(0.6);
   background-color: #659DBD;
   .Welcome {
     position: relative;
-    align-items: center;
+    text-align: center;
     font-size: 24px;
-    height: 30px;
-    width: 300px; 
+    height: 40px;
+    width: 50vw; 
   }
   .tagLine {
     position: relative;
+    text-align: center;
     font-size: 20;
-    height: 30px;
-    width: 300px; 
+    height: 40px;
+    width: 50vw; 
+  }
+}
+
+.newPost {
+  display: flex;
+  flex-direction: row;
+}
+.WelcomeHeaderBlue {
+  order: 0;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 80px;
+  width: 50vw; 
+  align-items: center;
+  text-align: center;
+  margin-bottom: auto;
+  border: solid black 2px;
+  box-shadow: 5px 5px 5px black(0.6);
+  background-color: #659DBD;
+  .Welcome {
+    position: relative;
+    text-align: center;
+    font-size: 24px;
+    height: 40px;
+    width: 50vw; 
+  }
+  .tagLine {
+    position: relative;
+    text-align: center;
+    font-size: 20;
+    height: 40px;
+    width: 50vw; 
+  }
+}
+
+
+.WelcomeHeaderRed {
+  order: 0;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 80px;
+  width: 50vw; 
+  align-items: center;
+  text-align: center;
+  margin-bottom: auto;
+  border: solid black 2px;
+  box-shadow: 5px 5px 5px black(0.6);
+  background-color: #659DBD;
+  .Welcome {
+    position: relative;
+    text-align: center;
+    font-size: 24px;
+    height: 40px;
+    width: 50vw; 
+  }
+  .tagLine {
+    position: relative;
+    text-align: center;
+    font-size: 20;
+    height: 40px;
+    width: 50vw; 
   }
 }

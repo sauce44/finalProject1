@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../scss/styles.scss';
 
 export default function App(props) {
+	console.log('props', props);
 	const [posts, setPosts] = useState([]);
 	const titleInput = useRef(null);
 	const bodyInput = useRef(null);
@@ -23,8 +24,18 @@ export default function App(props) {
 		e.preventDefault();
 		const titleValue = titleInput.current.value;
 		const bodyValue = bodyInput.current.value;
+		console.log('title input', titleValue);
+		console.log('bodyval', bodyValue);
+		console.log(
+			'json stringify',
+			JSON.stringify({
+				title: titleValue,
+				body: bodyValue
+			})
+		);
+
 		try {
-			const response = await fetch('/api/posts', {
+			const response = await fetch('/api/posts/', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -33,10 +44,16 @@ export default function App(props) {
 					title: titleValue,
 					body: bodyValue
 				})
+				// body: JSON.stringify({
+				// 	title: titleValue,
+				// 	body: bodyValue
+				// })
 			});
 			const data = await response.json();
+			console.log('data', data);
 			await setPosts([...posts, data]);
 		} catch (error) {
+			console.log('errorrrrrrr', error);
 			console.error(error);
 		}
 		titleInput.current.value = '';
@@ -46,13 +63,20 @@ export default function App(props) {
 	return (
 		<div className="FullPage">
 			<div className="AppPage">
-				<div className="WelcomeHeader">
-					<h1 className="Welcome">Welcome to the Think Tank</h1>
-					<h2 className="tagLine">Popular Posts</h2>
-				</div>
-				{posts.map(post => {
+				<form className="newPost" onSubmit={handleSubmit}>
+					<label>
+						Post Title: <input type="text" ref={titleInput} />
+					</label>
+					<label>
+						Description: <input type="text" ref={bodyInput} />
+					</label>
+					<input className="submit" type="submit" value="Create Tank" />
+				</form>
+			</div>
+			{posts &&
+				posts.map(post => {
 					return (
-						<div className="Posts" key={post._id}>
+						<div className="posts" key={post._id}>
 							<Link to={`/${post._id}/posts`}>
 								<h3>{post.title}</h3>
 							</Link>
@@ -73,16 +97,6 @@ export default function App(props) {
 						</div>
 					);
 				})}
-			</div>
-			<form className="footer" onSubmit={handleSubmit}>
-				<label>
-					Post Title: <input type="text" ref={titleInput} />
-				</label>
-				<label>
-					Description: <input type="text" ref={bodyInput} />
-				</label>
-				<input className="submit" type="submit" value="Create Tank" />
-			</form>
 		</div>
 	);
 }

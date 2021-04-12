@@ -2,49 +2,53 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Team from '../../models/team';
 
-export default function App(props) {
+export default function Red(props) {
 	const [post, setPost] = useState([]);
-	// const titleInput = useRef(null);
-	// const bodyInput = useRef(null);
+	const titleInput = useRef(null);
+	const bodyInput = useRef(null);
 
 	useEffect(() => {
 		(async () => {
 			try {
 				const response = await fetch('/api/teams');
 				const data = await response.json();
-				setPost(data.filter(team => team.users.teamName === 'blue'));
+				setPost(data.filter(team => team.users.teamName === 'red'));
 			} catch (error) {
 				console.error(error);
 			}
 		})();
 	}, []);
 
-	// const handleSubmit = async e => {
-	// 	e.preventDefault();
-	// 	const titleValue = titleInput.current.value;
-	// 	const bodyValue = bodyInput.current.value;
-	// 	try {
-	// 		const response = await fetch('/api/posts', {
-	// 			method: 'POST',
-	// 			headers: {
-	// 				'Content-Type': 'application/json'
-	// 			},
-	// 			body: JSON.stringify({
-	// 				title: titleValue,
-	// 				body: bodyValue
-	// 			})
-	// 		});
-	// 		const data = await response.json();
-	// 		setPost([...post, data]);
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// };
+	const handleSubmit = async e => {
+		e.preventDefault();
+		const titleValue = titleInput.current.value;
+		const bodyValue = bodyInput.current.value;
+		try {
+			const response = await fetch('/api/posts', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					title: titleValue,
+					body: bodyValue
+				})
+			});
+			const data = await response.json();
+			setPost([...post, data]);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<div className="RedPage">
-			<h1>Welcome to the Red Think Tank</h1>
-			<h2>You will be places with posts from the Blue team.</h2>
+			<div className="WelcomeHeaderRed">
+				<h1 className="Welcome">Welcome to the Red Think Tank</h1>
+				<h2 className="tagLine">
+					You will be placed with posts from the Red team.
+				</h2>
+			</div>
 			{post.map(team => {
 				<div className="Users" key={team.users._id}>
 					<div className="Posts" key={team.users.posts._id}>
@@ -68,10 +72,7 @@ export default function App(props) {
 					</div>
 				</div>;
 			})}
-			<form
-				style={{ display: 'flex', flexDirection: 'column' }}
-				onSubmit={handleSubmit}
-			>
+			<form className="footer" onSubmit={handleSubmit}>
 				<label>
 					Title: <input type="text" ref={titleInput} />
 				</label>

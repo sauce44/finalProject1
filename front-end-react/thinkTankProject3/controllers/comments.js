@@ -8,7 +8,7 @@ const commentRouter = express.Router();
 // -- edit goes bye bye
 // CRUD
 // Create
-commentRouter.post('/', async (req, res)=> {
+commentRouter.post('/api/comments', async (req, res)=> {
     try {
         const { name, message, postID } = req.body
         const newComment = await Comment.create({
@@ -29,7 +29,7 @@ commentRouter.post('/', async (req, res)=> {
 })
 // Read 
 /* Index */
-commentRouter.get('/', async (req, res) => {
+commentRouter.get('/api/comments', async (req, res) => {
   try {
     const foundComments = await Comment.find({})
     res
@@ -42,7 +42,7 @@ commentRouter.get('/', async (req, res) => {
   }
 })
 /* Show */
-commentRouter.get('/:id', async (req, res) => {
+commentRouter.get('/api/comments/:id', async (req, res) => {
     try {
         const foundComment = await Comment.findById(req.params.id)
         res
@@ -55,7 +55,7 @@ commentRouter.get('/:id', async (req, res) => {
     }
 })
 // Destroy
-commentRouter.delete('/:id', async (req, res) => {
+commentRouter.delete('/api/comments/:id', async (req, res) => {
     try {
         const foundComment = await Comment.findByIdAndDelete(req.params.id)
         res
@@ -68,7 +68,7 @@ commentRouter.delete('/:id', async (req, res) => {
     }
 })
 // Update
-commentRouter.put('/:id', async (req, res) => {
+commentRouter.put('/api/comments/:id', async (req, res) => {
     try {
         const foundComment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true } )
         res

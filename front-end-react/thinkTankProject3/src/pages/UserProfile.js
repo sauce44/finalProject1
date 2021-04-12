@@ -35,24 +35,24 @@ export default function useProfile(props) {
 	useEffect(() => {
 		async e => {
 			e.preventDefault();
-			while (user.team == false) {
-				if (teamData.map(team => team.users.job.includes()) == false) {
-					async e => {
-						e.preventDefault();
-						try {
-							const response = await fetch(`/api/teams`, {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json'
-								},
-								body: body
-							});
-						} catch (error) {
-							console.error(error);
-						}
-					};
-				}
-			}
+			// while (user.team == false) {
+			// 	if (teamData.map(team => team.users.job.includes()) == false) {
+			// 		async e => {
+			// 			e.preventDefault();
+			// 			try {
+			// 				const response = await fetch(`/api/teams`, {
+			// 					method: 'POST',
+			// 					headers: {
+			// 						'Content-Type': 'application/json'
+			// 					},
+			// 					body: body
+			// 				});
+			// 			} catch (error) {
+			// 				console.error(error);
+			// 			}
+			// 		};
+			// 	}
+			// }
 			try {
 				const response = await fetch(
 					`/api/users/${props.match.params.user.id}`,
@@ -76,72 +76,111 @@ export default function useProfile(props) {
 		let e = document.querySelector('.Dropdown');
 
 		let output = e.options[e.selectedIndex].value;
-
-		async e => {
-			e.preventDefault();
-			const body = JSON.stringify({
-				users: {
-					job: output
-				}
-			});
-
-			try {
-				const response = await fetch(
-					`/api/users/${props.match.params.user.id}`,
-					{
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: body
+		useEffect(() => {
+			async e => {
+				e.preventDefault();
+				const body = JSON.stringify({
+					users: {
+						job: output
 					}
-				);
-				const data = await response.json();
-				setUser(data);
-			} catch (error) {
-				console.error(error);
-			}
-		};
+				});
+
+				try {
+					const response = await fetch(
+						`/api/users/${props.match.params.user.id}`,
+						{
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: body
+						}
+					);
+					const data = await response.json();
+					setUser(data);
+				} catch (error) {
+					console.error(error);
+				}
+			};
+		});
 	};
 
 	const joinTeam = () => {
 		if (user.team == false) {
 			for (i = 0; i < teamData.users.length; i++) {
-				if (teamData.users[i].jobs.filter(users => users.job == output)) {
-					async e => {
-						e.preventDefault();
-						const body = JSON.stringify({
-							users: {
-								users: user
-							}
-						});
+				if (
+					teamData.users[i].jobs.includes(users => users.job == output) == false
+				) {
+					useEffect(() => {
+						async e => {
+							e.preventDefault();
+							const body = JSON.stringify({
+								users: {
+									users: user
+								}
+							});
 
-						try {
-							const response = await fetch(
-								`/api/teams/${props.match.params.user.id}`,
-								{
-									method: 'PUT',
+							try {
+								const response = await fetch(
+									`/api/teams/${props.match.params.user.id}`,
+									{
+										method: 'PUT',
+										headers: {
+											'Content-Type': 'application/json'
+										},
+										body: body
+									}
+								);
+								const data = await response.json();
+								setTeamData(...teamData, data);
+							} catch (error) {
+								console.error(error);
+							}
+						};
+					});
+					setJoinedTeam(true);
+				} else {
+					alert(`All Team\'s Are Full, Adding You To A New Team`);
+					useEffect(() => {
+						async e => {
+							e.preventDefault();
+							const body = JSON.stringify({
+								users: {
+									users: user
+								}
+							});
+							try {
+								const response = await fetch(`/api/teams`, {
+									method: 'POST',
 									headers: {
 										'Content-Type': 'application/json'
 									},
 									body: body
-								}
-							);
-							const data = await response.json();
-							setTeamData(...teamData, data);
-						} catch (error) {
-							console.error(error);
-						}
-					};
+								});
+								const data = await response.json();
+								setTeamData(...teamData, data);
+							} catch (error) {
+								console.error(error);
+							}
+						};
+					});
+					setJoinedTeam(true);
 				}
 			}
 		}
 	};
+	joinTeam();
 
 	if (props.isLoggedIn == true && joinedTeam == true) {
 		return (
 			<div className="UserProfile">
 				{/* <img src={USER.picture} alt={USER.name} /> */}
+				<div className="WelcomeHeader">
+					<h1 className="Welcome">Think Tank</h1>
+					<Link to={`/`}>
+						<button className="backHome">Back Home</button>
+					</Link>
+				</div>
 				<h2>Email: {user.email}</h2>
 				<p>
 					Posts:{' '}
@@ -164,6 +203,12 @@ export default function useProfile(props) {
 		return (
 			<div className="UserProfile">
 				{/* <img src={USER.picture} alt={USER.name} /> */}
+				<div className="WelcomeHeader">
+					<h1 className="Welcome">Think Tank</h1>
+					<Link to={`/`}>
+						<button className="backHome">Back Home</button>
+					</Link>
+				</div>
 				<h2>Email: {user.email}</h2>
 				<div>
 					<label className="job">
@@ -181,18 +226,15 @@ export default function useProfile(props) {
 			</div>
 		);
 	}
+
 	return (
 		<div className="UserProfile">
-			<Link to={`/`}>
-				<button>Back to Home</button>
-			</Link>
 			<div className="WelcomeHeader">
 				<h1 className="Welcome">Think Tank</h1>
+				<Link to={`/`}>
+					<button className="backHome">Back Home</button>
+				</Link>
 			</div>
-			<signup-button
-				handleInput={props.handleInput}
-				handleSignUp={props.handleSignUp}
-			/>
 		</div>
 	);
 }

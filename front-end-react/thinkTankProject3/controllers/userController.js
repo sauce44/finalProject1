@@ -10,16 +10,16 @@ const express = require('express');
 const userRouter = express.Router();
 // register
 userRouter.post('/register', async (req,res) => {
-    let { email, password } = req.body;
-    password = hash(password);
-    password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    let { Email, Password } = req.body;
+    Password = hash(Password);
+    Password = bcrypt.hashSync(Password, bcrypt.genSaltSync(10));
     try {
-        const newUser = await User.create({ email, password });
-        const token = jwt.sign({email: newUser.email, id: newUser._id}, SECRET);
+        const newUser = await User.create({ Email, Password });
+        const token = jwt.sign({email: newUser.Email, id: newUser._id}, SECRET);
         res.json({
             token,
             authorized: true, 
-            username: newUser.email
+            username: newUser.Email
         })
     } catch (error) {
         console.error(error)
@@ -31,16 +31,16 @@ userRouter.post('/register', async (req,res) => {
 
 // login
 userRouter.post('/login', async(req, res) => {
-    let { email, password } = req.body;
-    password = hash(password);
+    let { Email, Password } = req.body;
+    Password = hash(Password);
 
     try {
-        const userQuery = User.findOne({email}).select('password email')
+        const userQuery = User.findOne({Email}).select('Password Email')
         const foundUser = await  userQuery.exec();
-        if(bcrypt.compareSync(password, foundUser.password)){
+        if(bcrypt.compareSync(Password, foundUser.Password)){
             const token = jwt.sign(
                 {
-                email: foundUser.email,
+                Email: foundUser.Email,
                 id: foundUser._id
                 },
                 SECRET
@@ -50,7 +50,7 @@ userRouter.post('/login', async(req, res) => {
                 .json({
                     token,
                     authorized: true,
-                    username: foundUser.email
+                    username: foundUser.Email
                 })
         } else {
             res
@@ -73,7 +73,7 @@ userRouter.post('/login', async(req, res) => {
 // -- edit goes bye bye
 // CRUD
 // Create
-userRouter.post('/', async (req, res)=> {
+userRouter.post('/api/users', async (req, res)=> {
     try {
         const { userName, password, teamID } = req.body
         const newUser = await User.create({
@@ -94,7 +94,7 @@ userRouter.post('/', async (req, res)=> {
 })
 // Read 
 /* Index */
-userRouter.get('/', async (req, res) => {
+userRouter.get('/api/users', async (req, res) => {
   try {
     const foundUsers = await User.find({})
     res
@@ -107,7 +107,7 @@ userRouter.get('/', async (req, res) => {
   }
 })
 /* Show */
-userRouter.get('/:id', async (req, res) => {
+userRouter.get('/api/users/:id', async (req, res) => {
     try {
         const foundUser = await User.findById(req.params.id)
         await foundUser.execPopulate('posts')
@@ -121,7 +121,7 @@ userRouter.get('/:id', async (req, res) => {
     }
 })
 // Destroy
-userRouter.delete('/:id', async (req, res) => {
+userRouter.delete('/api/users/:id', async (req, res) => {
     try {
         const foundUser = await User.findByIdAndDelete(req.params.id)
         res
@@ -134,7 +134,7 @@ userRouter.delete('/:id', async (req, res) => {
     }
 })
 // Update
-userRouter.put('/:id', async (req, res) => {
+userRouter.put('/api/users/:id', async (req, res) => {
     try {
         const foundUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true } )
         res

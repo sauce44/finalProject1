@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class LikeButton extends Component {
+export default class likeButton extends Component {
 
     state = {
         likes: 0
@@ -12,6 +12,7 @@ export default class LikeButton extends Component {
           likes: newCount
         });
       };
+      
     render() {
         return (
             <div>

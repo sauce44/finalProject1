@@ -7,6 +7,10 @@ function LoginButton(props) {
 		setClicked(true);
 	};
 
+	const handleSubmit = () => {
+		document.getElementsByClassName('login-button').style.display = 'none';
+	};
+
 	return (
 		<div>
 			<button className="login-button" onClick={handleClick}>
@@ -14,7 +18,7 @@ function LoginButton(props) {
 			</button>
 
 			{clicked ? (
-				<form>
+				<form className="login-form">
 					<div>
 						<label htmlFor="email">Email:</label>
 						<input type="text" name="email" onChange={props.handleInput} />
@@ -23,7 +27,12 @@ function LoginButton(props) {
 						<label htmlFor="password">Password:</label>
 						<input type="text" name="password" onChange={props.handleInput} />
 					</div>
-					<input value="Submit" type="submit" onClick={props.handleLogIn} />
+					<input
+						value="Submit"
+						type="submit"
+						onClick={props.handleLogIn}
+						onSubmit={handleSubmit}
+					/>
 				</form>
 			) : (
 				''

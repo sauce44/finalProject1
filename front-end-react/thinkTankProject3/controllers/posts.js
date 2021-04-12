@@ -7,16 +7,16 @@ const postRouter = express.Router();
 // -- edit goes bye bye
 // CRUD
 // Create
-postRouter.post('/', async (req, res)=> {
+postRouter.post('/posts', async (req, res) => {
     try {
-        const { title, body, userID } = req.body
+        const { title, body } = req.body
         const newPost = await Post.create({
-          title,
-          body,
+          title: title,
+          body: body,
         });
-        const foundUser = await User.findById(userID)
-        const userPosts = foundUser.posts
-        const updatedUser = await User.findByIdAndUpdate(userID, {posts: [...userPosts, newPost._id]})
+        // const foundUser = await User.findById(userID)
+        // const userPosts = foundUser.posts
+        // const updatedUser = await User.findByIdAndUpdate(userID, {posts: [...userPosts, newPost._id]})
         res
           .status(200)
           .json(newPost)
@@ -28,7 +28,7 @@ postRouter.post('/', async (req, res)=> {
 })
 // Read 
 /* Index */
-postRouter.get('/', async (req, res) => {
+postRouter.get('/api/posts', async (req, res) => {
   try {
     const foundPosts = await Post.find({})
     res
@@ -41,7 +41,7 @@ postRouter.get('/', async (req, res) => {
   }
 })
 /* Show */
-postRouter.get('/:id', async (req, res) => {
+postRouter.get('/api/posts/:id', async (req, res) => {
     try {
         const foundPost = await Post.findById(req.params.id)
         await foundPost.execPopulate('comments')
@@ -55,7 +55,7 @@ postRouter.get('/:id', async (req, res) => {
     }
 })
 // Destroy
-postRouter.delete('/:id', async (req, res) => {
+postRouter.delete('/api/posts/:id', async (req, res) => {
     try {
         const foundPost = await Post.findByIdAndDelete(req.params.id)
         res
@@ -68,7 +68,7 @@ postRouter.delete('/:id', async (req, res) => {
     }
 })
 // Update
-postRouter.put('/:id', async (req, res) => {
+postRouter.put('/api/posts/:id', async (req, res) => {
     try {
         const foundPost = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true } )
         res

@@ -7,7 +7,8 @@ const cors = require('cors')
 const path = require('path');
 const { hash, auth } = require('./controllers/authController');
 const userController = require('./controllers/userController');
-
+const methodOverride = require('method-override');
+const parser = require('body-parser');
 const MONGODB_URI = process.env.MONGODB_URI
 const db = mongoose.connection;
 
@@ -18,15 +19,18 @@ mongoose.connect(MONGODB_URI, {
 	useCreateIndex: false
 });
 
-db.once('open', () => {
+db.on('open', () => {
     console.log('Mongo is Connected');
 });
-db.on('error', (error) => console.error(error));
+db.once('error', (error) => console.error(error));
 /* Middleware */
 app.use(express.json());
 if (process.env.NODE_ENV !== 'development'){
   app.use(express.static('public'))
 }
+app.use(methodOverride('_method'));
+app.use(parser.urlencoded({ extended: true }));
+app.use(parser.json())
 app.use(cors());
 
 /* Controller Goes Here Remove the tes*/
@@ -38,9 +42,8 @@ app.get('/test', (req, res)=>{
 })
 /* Controller Ends here */
 //LISTENER
-app.use('/', userController)
+app.use('/api/', require('./controllers/posts'));
 app.use('/api/teams', require('./controllers/teams'))
-app.use('/api/posts', require('./controllers/posts'));
 app.use('/api/comments', require('./controllers/comments'));
 app.use('/api/users', userController);
 
